@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Registro de Clientes</h2>
+      <p>Completa los datos para dar de alta un nuevo cliente</p>
+    </div>
+    
+    <form [formGroup]="clienteForm" (ngSubmit)="guardar()" class="form-grid">
+      <div class="form-group">
+        <label for="nombre">Nombre Completo</label>
+        <input 
+          id="nombre"
+          formControlName="nombre_cliente" 
+          type="text" 
+          placeholder="Ej. Juan Pérez"
+          [class.error-input]="clienteForm.get('nombre_cliente')?.invalid && clienteForm.get('nombre_cliente')?.touched"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="direccion">Dirección</label>
+        <input 
+          id="direccion"
+          formControlName="direccion_cliente" 
+          type="text" 
+          placeholder="Ej. Av. Las Américas 12-34"
+          [class.error-input]="clienteForm.get('direccion_cliente')?.invalid && clienteForm.get('direccion_cliente')?.touched"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input 
+          id="telefono"
+          formControlName="telefono" 
+          type="text" 
+          placeholder="Ej. 4567-8901"
+          [class.error-input]="clienteForm.get('telefono')?.invalid && clienteForm.get('telefono')?.touched"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="clienteForm.invalid" class="btn-primary">
+          <span class="icon">💾</span> Guardar Cliente
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card list-card">
+    <div class="card-header">
+      <h2>Listado de Clientes</h2>
+      <p>Clientes registrados en el sistema</p>
+    </div>
+
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientes">
+            <td class="col-code">{{ cliente.codigo_cliente }}</td>
+            <td class="col-name">{{ cliente.nombre_cliente }}</td>
+            <td>{{ cliente.direccion_cliente }}</td>
+            <td>{{ cliente.telefono }}</td>
+          </tr>
+          <tr *ngIf="clientes.length === 0">
+            <td colspan="4" class="no-data">No hay clientes registrados aún.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
